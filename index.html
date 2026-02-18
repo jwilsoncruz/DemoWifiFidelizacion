@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DEMO WIFI FIDELIZACION</title>
+
+<style>
+:root {
+    --color-principal: #D4AF37;   /* 🔥 CAMBIA SOLO ESTE */
+    --color-secundario: #F4CF67;  /* opcional */
+}
+
+body { 
+    background-color: #000; 
+    color: #fff; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    min-height: 100vh; 
+    margin: 0; 
+}
+
+.portal-card { 
+    background: #111; 
+    border: 2px solid var(--color-principal); 
+    padding: 30px; 
+    border-radius: 20px; 
+    width: 90%; 
+    max-width: 350px; 
+    text-align: center; 
+    box-shadow: 0 0 25px rgba(0,0,0,0.6); 
+}
+
+.logo { max-width: 140px; margin-bottom: 15px; }
+
+h2 { 
+    color: var(--color-principal); 
+    font-size: 1.4rem; 
+    margin-bottom: 20px; 
+    text-transform: uppercase; 
+}
+
+input { 
+    width: 100%; 
+    padding: 12px; 
+    margin: 10px 0; 
+    background: #222; 
+    border: 1px solid #444; 
+    border-radius: 8px; 
+    color: #fff; 
+    box-sizing: border-box; 
+    font-size: 16px; 
+}
+
+input:focus { 
+    border-color: var(--color-principal); 
+    outline: none; 
+    box-shadow: 0 0 5px var(--color-principal); 
+}
+
+label { 
+    display: block; 
+    text-align: left; 
+    font-size: 0.8rem; 
+    color: #aaa; 
+    margin-top: 5px; 
+}
+
+.promo-box { 
+    display: flex; 
+    align-items: center; 
+    font-size: 0.8rem; 
+    margin: 15px 0; 
+    color: var(--color-principal); 
+    background: rgba(255,255,255,0.05); 
+    padding: 10px; 
+    border-radius: 8px; 
+}
+
+.promo-box input { width: auto; margin-right: 10px; }
+
+button { 
+    background: linear-gradient(45deg, var(--color-principal), var(--color-secundario)); 
+    color: #000; 
+    border: none; 
+    padding: 15px; 
+    width: 100%; 
+    border-radius: 8px; 
+    font-weight: bold; 
+    cursor: pointer; 
+    text-transform: uppercase; 
+    margin-top: 10px; 
+    font-size: 1rem; 
+    transition: 0.3s; 
+}
+
+button:hover {
+    transform: scale(1.03);
+}
+
+#success-area { display: none; }
+
+.wifi-details { 
+    border: 2px dashed var(--color-principal); 
+    padding: 20px; 
+    margin-top: 20px; 
+    border-radius: 12px; 
+    background: #1a1a1a; 
+    margin-bottom: 15px; 
+}
+
+.legal-text { 
+    font-size: 0.7rem; 
+    color: #666; 
+    line-height: 1.2; 
+    margin-top: 15px; 
+}
+</style>
+</head>
+
+<body>
+
+<div class="portal-card">
+
+<img src="logo.png" alt="Logo Aqui Tu Empresa" class="logo" onerror="this.style.display='none'">
+
+<div id="form-area">
+    <h2>Acceso VIP</h2>
+
+    <form id="wifi-form"
+    action="https://docs.google.com/forms/d/e/1FAIpQLSc3jr1penfPWWdfh5JrdN36m5K7SdFo49NS2UPVXH0NjBq17Q/formResponse"
+    method="POST" target="hidden_iframe">
+
+        <input type="text" name="entry.2005620554" placeholder="Nombre y Apellido" required>
+        <input type="tel" name="entry.1166974658" placeholder="WhatsApp (Ej: 591...)" required>
+
+        <label>Tu Cumpleaños:</label>
+        <input type="date" id="fecha_input" required>
+
+        <div class="promo-box">
+            <input type="checkbox" name="entry.905110213" value="Sí" checked>
+            <label>¡Quiero mi regalo! 🎁</label>
+        </div>
+
+        <button type="submit" id="btn-enviar">Activar Internet Ahora</button>
+    </form>
+</div>
+
+<div id="success-area">
+    <h2>¡CONECTATE!</h2>
+    <div class="wifi-details">
+        <span style="color:#aaa;font-size:0.8rem;">RED:</span><br>
+        <b>Aqui Tu Wifi Local</b><br><br>
+
+        <span style="color:#aaa;font-size:0.8rem;">CONTRASEÑA:</span><br>
+        <b style="color:var(--color-principal);font-size:1.6rem;">
+            Aqui Tu Contraseña
+        </b>
+    </div>
+
+    <p class="legal-text">
+        Al utilizar este acceso aceptas recibir promociones de Aqui Tu Empresa.
+    </p>
+</div>
+
+</div>
+
+<iframe name="hidden_iframe" style="display:none;"
+onload="if(submitted){finalizar();}"></iframe>
+
+<script>
+var submitted = false;
+
+document.getElementById('wifi-form').onsubmit = function() {
+    const fecha = document.getElementById('fecha_input').value;
+    if(!fecha) return false;
+
+    const partes = fecha.split('-');
+    const f = document.getElementById('wifi-form');
+
+    const crearOculto = (n,v)=>{
+        let i=document.createElement("input");
+        i.type="hidden"; i.name=n; i.value=v;
+        f.appendChild(i);
+    };
+
+    crearOculto('entry.1180295174_year', partes[0]);
+    crearOculto('entry.1180295174_month', partes[1]);
+    crearOculto('entry.1180295174_day', partes[2]);
+
+    document.getElementById('btn-enviar').innerText="CONECTANDO...";
+    submitted=true;
+    return true;
+};
+
+function finalizar(){
+    document.getElementById('form-area').style.display='none';
+    document.getElementById('success-area').style.display='block';
+}
+</script>
+
+</body>
+</html>
